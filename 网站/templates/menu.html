@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>飞机餐点菜单</title>
+  <style>
+    /* 保持原有样式不变 */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: #f0f2f5;
+      color: #333;
+      line-height: 1.5;
+    }
+    header {
+      background: #004085;
+      color: #fff;
+      padding: 1rem;
+      text-align: center;
+    }
+    h1 { font-size: 2rem; }
+    .container {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+    h2 {
+      margin: 1.5rem 0 1rem;
+      color: #004085;
+      border-bottom: 2px solid #004085;
+      padding-bottom: 0.5rem;
+    }
+    .menu-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #fff;
+      margin-bottom: 0.75rem;
+      padding: 0.75rem;
+      border-radius: 6px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    .menu-item span {
+      flex: 1;
+      font-weight: 500;
+    }
+    .menu-item input {
+      width: 150px;
+      margin: 0 0.75rem;
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .menu-item button {
+      background: #004085;
+      color: #fff;
+      border: none;
+      padding: 0.5rem 0.75rem;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .menu-item button:hover {
+      background: #002752;
+    }
+    .actions {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    .actions button {
+      flex: 1;
+      padding: 0.75rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .actions .view { background: #28a745; color: #fff; }
+    .actions .view:hover { background: #1e7e34; }
+    .actions .clear { background: #dc3545; color: #fff; }
+    .actions .clear:hover { background: #c82333; }
+    .cart {
+      background: #fff;
+      margin-top: 2rem;
+      padding: 1rem;
+      border-radius: 6px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    .cart ul {
+      list-style: none;
+      margin-bottom: 1rem;
+    }
+    .cart li {
+      padding: 0.5rem 0;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    .cart h3 {
+      margin-bottom: 1rem;
+      color: #004085;
+    }
+    .cart .checkout {
+      background: #007bff;
+      color: #fff;
+      padding: 0.75rem;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .cart .checkout:hover {
+      background: #0056b3;
+    }
+    footer {
+      text-align: center;
+      margin: 3rem 0 1rem;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>飞机餐点菜单</h1>
+  </header>
+
+  <div class="container">
+    <!-- 新增：座位号输入框 -->
+    <div style="margin-bottom: 1rem;">
+      <label for="seat-number"><strong>请输入座位号：</strong></label>
+      <input type="text" id="seat-number" placeholder="如：12A" style="margin-left: 0.5rem; padding: 0.4rem; width: 100px;" />
+    </div>
+
+    <!-- 菜单区域 -->
+    <h2>套餐 Combos</h2>
+    <div class="menu-item">
+      <span>Griffindor roast beef combo烤牛肉套餐 (15£)</span>
+      <input type="text" id="remark1" placeholder="备注" />
+      <button onclick="addToCart('Griffindor roast beef combo烤牛肉套餐', 15, 'remark1')">加入购物车</button>
+    </div>
+    <div class="menu-item">
+      <span>Hufflepuff roast chicken combo烤鸡套餐 (14£)</span>
+      <input type="text" id="remark2" placeholder="备注" />
+      <button onclick="addToCart('Hufflepuff roast chicken combo烤鸡套餐', 14, 'remark2')">加入购物车</button>
+    </div>
+    <div class="menu-item">
+      <span>Ravenclaw roast pork combo烤猪肉套餐 (12£)</span>
+      <input type="text" id="remark3" placeholder="备注" />
+      <button onclick="addToCart('Ravenclaw roast pork combo烤猪肉套餐', 12, 'remark3')">加入购物车</button>
+    </div>
+    <div class="menu-item">
+      <span>Slytherin fish pie combo鱼派套餐 (13£)</span>
+      <input type="text" id="remark4" placeholder="备注" />
+      <button onclick="addToCart('Slytherin fish pie combo鱼派套餐', 13, 'remark4')">加入购物车</button>
+    </div>
+    <div class="menu-item">
+      <span>Herbivicus Salad草药狂沙拉 (10£)</span>
+      <input type="text" id="remark5" placeholder="备注" />
+      <button onclick="addToCart('Herbivicus Salad草药狂沙拉', 10, 'remark5')">加入购物车</button>
+    </div>
+
+    <h2>甜点 Desserts</h2>
+    <div class="menu-item">
+      <span>Hagrid’s birthday cake海格的生日蛋糕 (7£)</span>
+      <input type="text" id="remark6" placeholder="备注" />
+      <button onclick="addToCart('Hagrid’s birthday cake海格的生日蛋糕', 7, 'remark6')">加入购物车</button>
+    </div>
+    <div class="menu-item">
+      <span>Honey pudding蜜汁布丁 (6£)</span>
+      <input type="text" id="remark7" placeholder="备注" />
+      <button onclick="addToCart('Honey pudding蜜汁布丁', 6, 'remark7')">加入购物车</button>
+    </div>
+    <div class="menu-item">
+      <span>Bertie Bott's Every Flavor Beans比比多味豆 (5£)</span>
+      <input type="text" id="remark8" placeholder="备注" />
+      <button onclick="addToCart('Bertie Bott\'s Every Flavor Beans比比多味豆', 5, 'remark8')">加入购物车</button>
+    </div>
+    <div class="menu-item">
+      <span>Sherbet Lemon柠檬雪宝 (5£)</span>
+      <input type="text" id="remark9" placeholder="备注" />
+      <button onclick="addToCart('Sherbet Lemon柠檬雪宝', 5, 'remark9')">加入购物车</button>
+    </div>
+
+    <h2>创意饮品 Creative Beverage</h2>
+    <div class="menu-item">
+      <span>Felix Felicis福灵剂: standard标准杯(250mL) (10£)</span>
+      <input type="text" id="remark10" placeholder="备注" />
+      <button onclick="addToCart('Felix Felicis福灵剂-标准杯(250mL)', 10, 'remark10')">加入购物车</button>
+    </div>
+    <div class="menu-item">
+      <span>Felix Felicis福灵剂: Alcoholic Edition(125ml) (12£)</span>
+      <input type="text" id="remark11" placeholder="备注" />
+      <button onclick="addToCart('Felix Felicis福灵剂-Alcoholic Edition(125ml)', 12, 'remark11')">加入购物车</button>
+    </div>
+    <div class="menu-item">
+      <span>Amortentia迷情剂: standard标准杯(250mL) (7£)</span>
+      <input type="text" id="remark12" placeholder="备注" />
+      <button onclick="addToCart('Amortentia迷情剂-标准杯(250mL)', 7, 'remark12')">加入购物车</button>
+    </div>
+    <div class="menu-item">
+      <span>Amortentia迷情剂: couple’s set情侣杯 (12£)</span>
+      <input type="text" id="remark13" placeholder="备注" />
+      <button onclick="addToCart('Amortentia迷情剂-情侣杯', 12, 'remark13')">加入购物车</button>
+    </div>
+    <div class="menu-item">
+      <span>Amortentia迷情剂: Alcoholic Edition(125ml) (10£)</span>
+      <input type="text" id="remark14" placeholder="备注" />
+      <button onclick="addToCart('Amortentia迷情剂-Alcoholic Edition(125ml)', 10, 'remark14')">加入购物车</button>
+    </div>
+    <div class="menu-item">
+      <span>Butterbeer黄油啤酒: standard标准杯(250mL) (6£)</span>
+      <input type="text" id="remark15" placeholder="备注" />
+      <button onclick="addToCart('Butterbeer黄油啤酒-标准杯(250mL)', 6, 'remark15')">加入购物车</button>
+    </div>
+    <div class="menu-item">
+      <span>Butterbeer黄油啤酒: Alcoholic Edition(125ml) (8£)</span>
+      <input type="text" id="remark16" placeholder="备注" />
+      <button onclick="addToCart('Butterbeer黄油啤酒-Alcoholic Edition(125ml)', 8, 'remark16')">加入购物车</button>
+    </div>
+    <div class="menu-item">
+      <span>Fire whisky火焰威士忌: standard标准杯(125mL) (10£)</span>
+      <input type="text" id="remark17" placeholder="备注" />
+      <button onclick="addToCart('Fire whisky火焰威士忌', 10, 'remark17')">加入购物车</button>
+    </div>
+    <div class="menu-item">
+      <span>Redcurrant Rum红醋栗朗姆酒: standard标准杯(125mL) (10£)</span>
+      <input type="text" id="remark18" placeholder="备注" />
+      <button onclick="addToCart('Redcurrant Rum红醋栗朗姆酒', 10, 'remark18')">加入购物车</button>
+    </div>
+
+    <div class="actions">
+      <button class="view" onclick="viewCart()">查看购物车</button>
+      <button class="clear" onclick="clearCart()">清空购物车</button>
+    </div>
+
+    <div class="cart" id="cart" style="display:none">
+      <h2>购物车 Cart</h2>
+      <ul id="cart-items"></ul>
+      <h3>总金额: <span id="total-price">0</span>£</h3>
+      <button class="checkout" onclick="checkout()">结账 Checkout</button>
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2025 飞机餐点
+  </footer>
+
+  <script>
+    let cart = [], total = 0;
+
+    function addToCart(item, price, remarkId) {
+      const seat = document.getElementById("seat-number").value.trim();
+      if (!seat) {
+        alert("请先输入座位号！");
+        return;
+      }
+      const remark = document.getElementById(remarkId).value || '无备注';
+      cart.push({ item, price, remark, seat });
+      total += price;
+      alert(`${item} 已添加到购物车！`);
+      syncCartToBackend();
+    }
+
+    function syncCartToBackend() {
+      fetch('/sync-cart', {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({ seat: document.getElementById("seat-number").value.trim(), cart, total })
+      })
+      .then(r => r.json())
+      .then(console.log)
+      .catch(console.error);
+    }
+
+    function viewCart() {
+      const ul = document.getElementById('cart-items');
+      ul.innerHTML = '';
+      cart.forEach(e => {
+        const li = document.createElement('li');
+        li.textContent = `${e.item} - ${e.price}£ - 备注: ${e.remark} - 座位号: ${e.seat}`;
+        ul.appendChild(li);
+      });
+      document.getElementById('total-price').textContent = total;
+      document.getElementById('cart').style.display = 'block';
+      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    }
+
+    function checkout() {
+      alert('订单已提交！');
+      cart = []; total = 0;
+      viewCart();
+    }
+
+    function clearCart() {
+      cart = []; total = 0;
+      document.getElementById('cart').style.display = 'none';
+    }
+  </script>
+
+</body>
+</html>

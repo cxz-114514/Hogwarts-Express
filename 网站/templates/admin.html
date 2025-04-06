@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>订单后台</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f8f9fa; padding: 2rem; }
+    h1 { color: #004085; }
+    .order {
+      background: #fff;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border-radius: 6px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    }
+    .order h3 { margin-bottom: 0.5rem; }
+    .order ul { list-style: none; padding-left: 1rem; }
+    .order li { margin-bottom: 0.25rem; }
+  </style>
+</head>
+<body>
+  <h1>订单后台</h1>
+  {% if orders %}
+    {% for order in orders %}
+      <div class="order">
+        <h3>座位号：{{ order.seat }}</h3>
+        <ul>
+          {% for item in order.cart %}
+            <li>{{ item.item }} - {{ item.price }}£ - 备注: {{ item.remark }}</li>
+          {% endfor %}
+        </ul>
+        <p><strong>总金额：</strong>£{{ order.total }}</p>
+      </div>
+    {% endfor %}
+  {% else %}
+    <p>暂无订单</p>
+  {% endif %}
+</body>
+</html>
