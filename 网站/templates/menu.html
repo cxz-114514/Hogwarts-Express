@@ -32,13 +32,18 @@
     }
     .menu-item {
       display: flex;
-      align-items: center;
-      justify-content: space-between;
+      flex-direction: column;
       background: #fff;
       margin-bottom: 0.75rem;
       padding: 0.75rem;
       border-radius: 6px;
       box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    .menu-item > div {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
     }
     .menu-item span {
       flex: 1;
@@ -62,6 +67,12 @@
     }
     .menu-item button:hover {
       background: #002752;
+    }
+    .ingredients {
+      font-size: 0.8rem;
+      color: #666;
+      margin-top: 0.4rem;
+      line-height: 1.3;
     }
     .actions {
       display: flex;
@@ -117,115 +128,256 @@
       margin: 3rem 0 1rem;
       color: #666;
     }
+    /* 新增：语言切换下拉框样式 */
+    #language-selector {
+      margin-bottom: 1rem;
+      padding: 0.4rem;
+      font-size: 1rem;
+    }
   </style>
 </head>
 <body>
   <header>
-    <h1>飞机餐点菜单</h1>
+    <h1 id="header-title">飞机餐点菜单</h1>
   </header>
 
   <div class="container">
-    <!-- 新增：座位号输入框 -->
+    <!-- 语言切换下拉框 -->
+    <div style="margin-bottom: 1rem; text-align:right;">
+      <label for="language-selector"><strong>语言:</strong></label>
+      <select id="language-selector">
+        <option value="zh">中文</option>
+        <option value="en">English</option>
+        <option value="es">Español</option>
+        <option value="fr">Français</option>
+        <option value="ar">العربية</option>
+        <option value="ru">Русский</option>
+      </select>
+    </div>
+
+    <!-- 座位号输入 -->
     <div style="margin-bottom: 1rem;">
-      <label for="seat-number"><strong>请输入座位号：</strong></label>
+      <label for="seat-number"><strong id="seat-label">请输入座位号：</strong></label>
       <input type="text" id="seat-number" placeholder="如：12A" style="margin-left: 0.5rem; padding: 0.4rem; width: 100px;" />
     </div>
 
     <!-- 菜单区域 -->
-    <h2>套餐 Combos</h2>
+    <h2 id="combos-title">套餐 Combos</h2>
     <div class="menu-item">
-      <span>Griffindor roast beef combo烤牛肉套餐 (15£)</span>
-      <input type="text" id="remark1" placeholder="备注" />
-      <button onclick="addToCart('Griffindor roast beef combo烤牛肉套餐', 15, 'remark1')">加入购物车</button>
+      <div>
+        <span id="food1">Griffindor Roast Beef Combo (15£)</span>
+        <input type="text" id="remark1" placeholder="备注" />
+        <button class="btn-add" onclick="addToCart('Griffindor Roast Beef Combo (15£)', 15, 'remark1')">加入购物车</button>
+      </div>
     </div>
     <div class="menu-item">
-      <span>Hufflepuff roast chicken combo烤鸡套餐 (14£)</span>
-      <input type="text" id="remark2" placeholder="备注" />
-      <button onclick="addToCart('Hufflepuff roast chicken combo烤鸡套餐', 14, 'remark2')">加入购物车</button>
+      <div>
+        <span id="food2">Hufflepuff Roast Chicken Combo (14£)</span>
+        <input type="text" id="remark2" placeholder="备注" />
+        <button class="btn-add" onclick="addToCart('Hufflepuff Roast Chicken Combo (14£)', 14, 'remark2')">加入购物车</button>
+      </div>
     </div>
     <div class="menu-item">
-      <span>Ravenclaw roast pork combo烤猪肉套餐 (12£)</span>
-      <input type="text" id="remark3" placeholder="备注" />
-      <button onclick="addToCart('Ravenclaw roast pork combo烤猪肉套餐', 12, 'remark3')">加入购物车</button>
+      <div>
+        <span id="food3">Ravenclaw Roast Pork Combo (12£)</span>
+        <input type="text" id="remark3" placeholder="备注" />
+        <button class="btn-add" onclick="addToCart('Ravenclaw Roast Pork Combo (12£)', 12, 'remark3')">加入购物车</button>
+      </div>
     </div>
     <div class="menu-item">
-      <span>Slytherin fish pie combo鱼派套餐 (13£)</span>
-      <input type="text" id="remark4" placeholder="备注" />
-      <button onclick="addToCart('Slytherin fish pie combo鱼派套餐', 13, 'remark4')">加入购物车</button>
+      <div>
+        <span id="food4">Slytherin Fish Pie Combo (13£)</span>
+        <input type="text" id="remark4" placeholder="备注" />
+        <button class="btn-add" onclick="addToCart('Slytherin Fish Pie Combo (13£)', 13, 'remark4')">加入购物车</button>
+      </div>
     </div>
     <div class="menu-item">
-      <span>Herbivicus Salad草药狂沙拉 (10£)</span>
-      <input type="text" id="remark5" placeholder="备注" />
-      <button onclick="addToCart('Herbivicus Salad草药狂沙拉', 10, 'remark5')">加入购物车</button>
-    </div>
-
-    <h2>甜点 Desserts</h2>
-    <div class="menu-item">
-      <span>Hagrid’s birthday cake海格的生日蛋糕 (7£)</span>
-      <input type="text" id="remark6" placeholder="备注" />
-      <button onclick="addToCart('Hagrid’s birthday cake海格的生日蛋糕', 7, 'remark6')">加入购物车</button>
-    </div>
-    <div class="menu-item">
-      <span>Honey pudding蜜汁布丁 (6£)</span>
-      <input type="text" id="remark7" placeholder="备注" />
-      <button onclick="addToCart('Honey pudding蜜汁布丁', 6, 'remark7')">加入购物车</button>
-    </div>
-    <div class="menu-item">
-      <span>Bertie Bott's Every Flavor Beans比比多味豆 (5£)</span>
-      <input type="text" id="remark8" placeholder="备注" />
-      <button onclick="addToCart('Bertie Bott\'s Every Flavor Beans比比多味豆', 5, 'remark8')">加入购物车</button>
-    </div>
-    <div class="menu-item">
-      <span>Sherbet Lemon柠檬雪宝 (5£)</span>
-      <input type="text" id="remark9" placeholder="备注" />
-      <button onclick="addToCart('Sherbet Lemon柠檬雪宝', 5, 'remark9')">加入购物车</button>
+      <div>
+        <span id="food5">Herbivicus Salad (10£)</span>
+        <input type="text" id="remark5" placeholder="备注" />
+        <button class="btn-add" onclick="addToCart('Herbivicus Salad (10£)', 10, 'remark5')">加入购物车</button>
+      </div>
     </div>
 
-    <h2>创意饮品 Creative Beverage</h2>
+    <h2 id="desserts-title">甜点 Desserts</h2>
     <div class="menu-item">
-      <span>Felix Felicis福灵剂: standard标准杯(250mL) (10£)</span>
-      <input type="text" id="remark10" placeholder="备注" />
-      <button onclick="addToCart('Felix Felicis福灵剂-标准杯(250mL)', 10, 'remark10')">加入购物车</button>
+      <div>
+        <span id="food6">Hagrid’s Birthday Cake (7£)</span>
+        <input type="text" id="remark6" placeholder="备注" />
+        <button class="btn-add" onclick="addToCart('Hagrid’s Birthday Cake (7£)', 7, 'remark6')">加入购物车</button>
+      </div>
     </div>
     <div class="menu-item">
-      <span>Felix Felicis福灵剂: Alcoholic Edition(125ml) (12£)</span>
-      <input type="text" id="remark11" placeholder="备注" />
-      <button onclick="addToCart('Felix Felicis福灵剂-Alcoholic Edition(125ml)', 12, 'remark11')">加入购物车</button>
+      <div>
+        <span id="food7">Honey Pudding (6£)</span>
+        <input type="text" id="remark7" placeholder="备注" />
+        <button class="btn-add" onclick="addToCart('Honey Pudding (6£)', 6, 'remark7')">加入购物车</button>
+      </div>
     </div>
     <div class="menu-item">
-      <span>Amortentia迷情剂: standard标准杯(250mL) (7£)</span>
-      <input type="text" id="remark12" placeholder="备注" />
-      <button onclick="addToCart('Amortentia迷情剂-标准杯(250mL)', 7, 'remark12')">加入购物车</button>
+      <div>
+        <span id="food8">Bertie Bott's Every Flavor Beans (5£)</span>
+        <input type="text" id="remark8" placeholder="备注" />
+        <button class="btn-add" onclick="addToCart('Bertie Bott\'s Every Flavor Beans (5£)', 5, 'remark8')">加入购物车</button>
+      </div>
     </div>
     <div class="menu-item">
-      <span>Amortentia迷情剂: couple’s set情侣杯 (12£)</span>
-      <input type="text" id="remark13" placeholder="备注" />
-      <button onclick="addToCart('Amortentia迷情剂-情侣杯', 12, 'remark13')">加入购物车</button>
+      <div>
+        <span id="food9">Sherbet Lemon (5£)</span>
+        <input type="text" id="remark9" placeholder="备注" />
+        <button class="btn-add" onclick="addToCart('Sherbet Lemon (5£)', 5, 'remark9')">加入购物车</button>
+      </div>
+    </div>
+
+    <!-- 免费套餐部分 -->
+    <h2 id="free-items-title">免费套餐 Free Items</h2>
+    <div class="menu-item">
+      <div>
+        <span id="food19">Bertie Bott’s Every-Flavour Beans Sandwich (Free)</span>
+        <p class="ingredients" id="ing-sandwich">
+          Ingredients: Chicken & mayo sandwich, but each bite might surprise you with random flavors.
+        </p>
+        <input type="text" id="remark19" placeholder="备注" />
+        <button class="btn-add" onclick="addToCart('Bertie Bott’s Every-Flavour Beans Sandwich (Free)', 0, 'remark19')">加入购物车</button>
+      </div>
     </div>
     <div class="menu-item">
-      <span>Amortentia迷情剂: Alcoholic Edition(125ml) (10£)</span>
-      <input type="text" id="remark14" placeholder="备注" />
-      <button onclick="addToCart('Amortentia迷情剂-Alcoholic Edition(125ml)', 10, 'remark14')">加入购物车</button>
+      <div>
+        <span id="food20">Cauldron-Shaped Meat Pie (Free)</span>
+        <p class="ingredients" id="ing-meatpie">
+          Ingredients: Flaky pastry filled with savory beef.
+        </p>
+        <input type="text" id="remark20" placeholder="备注" />
+        <button class="btn-add" onclick="addToCart('Cauldron-Shaped Meat Pie (Free)', 0, 'remark20')">加入购物车</button>
+      </div>
+    </div>
+
+    <h2 id="beverages-title">创意饮品 Creative Beverage</h2>
+    <div class="menu-item">
+      <div>
+        <span id="food10">
+          Felix Felicis: standard cup (250mL) (10£)
+          <br>
+          <p class="ingredients" id="ing-felix-standard">
+            Ingredients: Golden Milk (Turmeric+Coconut), Citrus-Honey Syrup, Guaraná Extract, Edible Gold Flakes, Sparkling Water.
+          </p>
+        </span>
+        <input type="text" id="remark10" placeholder="备注" />
+        <button class="btn-add" onclick="addToCart('Felix Felicis: standard cup (250mL) (10£)', 10, 'remark10')">加入购物车</button>
+      </div>
     </div>
     <div class="menu-item">
-      <span>Butterbeer黄油啤酒: standard标准杯(250mL) (6£)</span>
-      <input type="text" id="remark15" placeholder="备注" />
-      <button onclick="addToCart('Butterbeer黄油啤酒-标准杯(250mL)', 6, 'remark15')">加入购物车</button>
+      <div>
+        <span id="food11">
+          Felix Felicis: Alcoholic Edition (125ml) (12£)
+          <br>
+          <p class="ingredients" id="ing-felix-alc">
+            Ingredients: Same as standard.
+          </p>
+        </span>
+        <input type="text" id="remark11" placeholder="备注" />
+        <button class="btn-add" onclick="addToCart('Felix Felicis: Alcoholic Edition (125ml) (12£)', 12, 'remark11')">加入购物车</button>
+      </div>
     </div>
     <div class="menu-item">
-      <span>Butterbeer黄油啤酒: Alcoholic Edition(125ml) (8£)</span>
-      <input type="text" id="remark16" placeholder="备注" />
-      <button onclick="addToCart('Butterbeer黄油啤酒-Alcoholic Edition(125ml)', 8, 'remark16')">加入购物车</button>
+      <div>
+        <span id="food12">
+          Amortentia: standard cup (250mL) (7£)
+          <br>
+          <p class="ingredients" id="ing-amortentia-standard">
+            Ingredients: Butterfly pea flower tea, rose syrup, edible glitter, dry ice, elderflower liqueur (optional).
+          </p>
+          <p class="ingredients" id="ing-amortentia-options">
+            Customize Scent Options: Fresh grass/mint (Harry style), Vanilla/caramel (Ron style), Citrus/cedar (Draco style), Rose/honey (Ginny style)
+          </p>
+        </span>
+        <input type="text" id="remark12" placeholder="备注" />
+        <button class="btn-add" onclick="addToCart('Amortentia: standard cup (250mL) (7£)', 7, 'remark12')">加入购物车</button>
+      </div>
     </div>
     <div class="menu-item">
-      <span>Fire whisky火焰威士忌: standard标准杯(125mL) (10£)</span>
-      <input type="text" id="remark17" placeholder="备注" />
-      <button onclick="addToCart('Fire whisky火焰威士忌', 10, 'remark17')">加入购物车</button>
+      <div>
+        <span id="food13">
+          Amortentia: couple’s set (12£)
+          <br>
+          <p class="ingredients" id="ing-amortentia-couple">
+            Ingredients: Same as above.
+          </p>
+          <p class="ingredients" id="ing-amortentia-options2">
+            Customize Scent Options: Fresh grass/mint (Harry style), Vanilla/caramel (Ron style), Citrus/cedar (Draco style), Rose/honey (Ginny style)
+          </p>
+        </span>
+        <input type="text" id="remark13" placeholder="备注" />
+        <button class="btn-add" onclick="addToCart('Amortentia: couple’s set (12£)', 12, 'remark13')">加入购物车</button>
+      </div>
     </div>
     <div class="menu-item">
-      <span>Redcurrant Rum红醋栗朗姆酒: standard标准杯(125mL) (10£)</span>
-      <input type="text" id="remark18" placeholder="备注" />
-      <button onclick="addToCart('Redcurrant Rum红醋栗朗姆酒', 10, 'remark18')">加入购物车</button>
+      <div>
+        <span id="food14">
+          Amortentia: Alcoholic Edition (125ml) (10£)
+          <br>
+          <p class="ingredients" id="ing-amortentia-alc">
+            Ingredients: Same as above.
+          </p>
+          <p class="ingredients" id="ing-amortentia-options3">
+            Customize Scent Options: Fresh grass/mint (Harry style), Vanilla/caramel (Ron style), Citrus/cedar (Draco style), Rose/honey (Ginny style)
+          </p>
+        </span>
+        <input type="text" id="remark14" placeholder="备注" />
+        <button class="btn-add" onclick="addToCart('Amortentia: Alcoholic Edition (125ml) (10£)', 10, 'remark14')">加入购物车</button>
+      </div>
+    </div>
+    <div class="menu-item">
+      <div>
+        <span id="food15">
+          Butterbeer: standard cup (250mL) (6£)
+          <br>
+          <p class="ingredients" id="ing-butterbeer-standard">
+            Ingredients: Cream Soda, Butter Syrup, Cream Topping.
+          </p>
+        </span>
+        <input type="text" id="remark15" placeholder="备注" />
+        <button class="btn-add" onclick="addToCart('Butterbeer: standard cup (250mL) (6£)', 6, 'remark15')">加入购物车</button>
+      </div>
+    </div>
+    <div class="menu-item">
+      <div>
+        <span id="food16">
+          Butterbeer: Alcoholic Edition (125ml) (8£)
+          <br>
+          <p class="ingredients" id="ing-butterbeer-alc">
+            Ingredients: Same as standard.
+          </p>
+        </span>
+        <input type="text" id="remark16" placeholder="备注" />
+        <button class="btn-add" onclick="addToCart('Butterbeer: Alcoholic Edition (125ml) (8£)', 8, 'remark16')">加入购物车</button>
+      </div>
+    </div>
+    <div class="menu-item">
+      <div>
+        <span id="food17">
+          Fire whisky: standard cup (125mL) (10£)
+          <br>
+          <p class="ingredients" id="ing-firewhisky">
+            Ingredients: Bourbon Whiskey, Coffee Liqueur, Chili Syrup, Maple Syrup, others (bitters/garnish).
+          </p>
+        </span>
+        <input type="text" id="remark17" placeholder="备注" />
+        <button class="btn-add" onclick="addToCart('Fire whisky: standard cup (125mL) (10£)', 10, 'remark17')">加入购物车</button>
+      </div>
+    </div>
+    <div class="menu-item">
+      <div>
+        <span id="food18">
+          Redcurrant Rum: standard cup (125mL) (10£)
+          <br>
+          <p class="ingredients" id="ing-redcurrant">
+            Ingredients: Rum, Redcurrant Syrup, Fresh Lemon Juice, Simple Syrup, Soda Water/Tonic, Garnish.
+          </p>
+        </span>
+        <input type="text" id="remark18" placeholder="备注" />
+        <button class="btn-add" onclick="addToCart('Redcurrant Rum: standard cup (125mL) (10£)', 10, 'remark18')">加入购物车</button>
+      </div>
     </div>
 
     <div class="actions">
@@ -257,7 +409,368 @@
       const remark = document.getElementById(remarkId).value || '无备注';
       cart.push({ item, price, remark, seat });
       total += price;
-      alert(`${item} 已添加到购物车！`);
+      alert(`${item} 已加入购物车！`);
+      syncCartToBackend();
+    }
+
+    function syncCartToBackend() {
+      fetch('/sync-cart', {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({ seat: document.getElementById("seat-number").value.trim(), cart, total })
+      })
+      .then(r => r.json())
+      .then(console.log)
+      .catch(console.error);
+    }
+
+    function viewCart() {
+      const ul = document.getElementById('cart-items');
+      ul.innerHTML = '';
+      cart.forEach(e => {
+        const li = document.createElement('li');
+        li.textContent = `${e.item} - ${e.price}£ - 备注: ${e.remark} - 座位号: ${e.seat}`;
+        ul.appendChild(li);
+      });
+      document.getElementById('total-price').textContent = total;
+      document.getElementById('cart').style.display = 'block';
+      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    }
+
+    function checkout() {
+      alert('订单已提交！');
+      cart = []; total = 0;
+      viewCart();
+    }
+
+    function clearCart() {
+      cart = []; total = 0;
+      document.getElementById('cart').style.display = 'none';
+    }
+
+    // 新增：语言切换功能
+    const translations = {
+      zh: {
+        header: "飞机餐点菜单",
+        seatLabel: "请输入座位号：",
+        combos: "套餐 Combos",
+        desserts: "甜点 Desserts",
+        freeItems: "免费套餐 Free Items",
+        beverages: "创意饮品 Creative Beverage",
+        viewCart: "查看购物车",
+        clearCart: "清空购物车",
+        cart: "购物车 Cart",
+        total: "总金额",
+        checkout: "结账 Checkout",
+        food1: "狮鹫烤牛肉套餐 (15英镑)",
+        food2: "赫奇帕奇烤鸡套餐 (14英镑)",
+        food3: "拉文克劳烤猪肉套餐 (12英镑)",
+        food4: "斯莱特林鱼馅饼套餐 (13英镑)",
+        food5: "赫比维库斯沙拉 (10英镑)",
+        food6: "海格的生日蛋糕 (7英镑)",
+        food7: "蜂蜜布丁 (6英镑)",
+        food8: "比比多味豆 (5英镑)",
+        food9: "谢尔贝特柠檬 (5英镑)",
+        food10: "福灵剂：标准杯 (250mL) (10英镑)",
+        food11: "福灵剂：酒精版 (125ml) (12英镑)",
+        food12: "迷情剂：标准杯 (250mL) (7英镑)",
+        food13: "迷情剂：情侣套装 (12英镑)",
+        food14: "迷情剂： 无酒精版 (125ml) (10英镑)",
+        food15: "黄油啤酒：标准杯 (250mL) (6英镑)",
+        food16: "黄油啤酒：酒精版 (125ml) (8英镑)",
+        food17: "火威士忌：标准杯 (125mL) (10英镑)",
+        food18: "红醋栗朗姆酒：标准杯 (125mL) (10英镑)",
+        food19: "伯蒂·博特的各种口味豆类三明治 (免费)",
+        food20: "大锅形肉馅饼 (免费)",
+        ingFelixStandard: "材料：金牛奶（姜黄+椰子）, 柑橘蜂蜜糖浆, 瓜拉纳提取物, 可食用金箔, 苏打水.",
+        ingFelixAlc: "材料：同上.",
+        ingAmortentiaStandard: "材料：蝶豆花茶, 玫瑰糖浆, 可食用闪粉, 干冰, 接骨木花利口酒(optional)等ect.",
+        ingAmortentiaOptions: "个性化选择：新鲜草/薄荷（哈利风格），香草/焦糖（罗恩风格），柑橘/雪松（德拉科风格），玫瑰/蜂蜜（金妮风格）",
+        ingButterbeerStandard: "材料：奶油苏打, 黄油糖浆, 奶顶.",
+        ingButterbeerAlc: "材料：同上.",
+        ingFireWhisky: "材料：波本威士忌, 咖啡利口酒, 辣椒糖浆, 枫糖浆, 其他（苦精/装饰）.",
+        ingRedcurrant: "材料：朗姆酒, 红醋栗浆, 新鲜柠檬汁, 单糖浆, 苏打水/汤力水, 装饰.",
+        ingSandwich: "材料：鸡肉和蛋黄酱三明治，但每一口都可能带来意想不到的风味。",
+        ingMeatPie: "材料：多层酥皮夹着咸香牛肉。"
+      },
+      en: {
+        header: "In-flight Meal Menu",
+        seatLabel: "Please enter seat number:",
+        combos: "Combos",
+        desserts: "Desserts",
+        freeItems: "Free Items",
+        beverages: "Creative Beverage",
+        viewCart: "View Cart",
+        clearCart: "Clear Cart",
+        cart: "Cart",
+        total: "Total Amount",
+        checkout: "Checkout",
+        food1: "Griffindor Roast Beef Combo (15£)",
+        food2: "Hufflepuff Roast Chicken Combo (14£)",
+        food3: "Ravenclaw Roast Pork Combo (12£)",
+        food4: "Slytherin Fish Pie Combo (13£)",
+        food5: "Herbivicus Salad (10£)",
+        food6: "Hagrid’s Birthday Cake (7£)",
+        food7: "Honey Pudding (6£)",
+        food8: "Bertie Bott's Every Flavor Beans (5£)",
+        food9: "Sherbet Lemon (5£)",
+        food10: "Felix Felicis: standard cup (250mL) (10£)",
+        food11: "Felix Felicis: Alcoholic Edition (125ml) (12£)",
+        food12: "Amortentia: standard cup (250mL) (7£)",
+        food13: "Amortentia: couple’s set (12£)",
+        food14: "Amortentia: Alcoholic Edition (125ml) (10£)",
+        food15: "Butterbeer: standard cup (250mL) (6£)",
+        food16: "Butterbeer: Alcoholic Edition (125ml) (8£)",
+        food17: "Fire whisky: standard cup (125mL) (10£)",
+        food18: "Redcurrant Rum: standard cup (125mL) (10£)",
+        food19: "Bertie Bott’s Every-Flavour Beans Sandwich (Free)",
+        food20: "Cauldron-Shaped Meat Pie (Free)",
+        ingFelixStandard: "Ingredients: Golden Milk (Turmeric+Coconut), Citrus-Honey Syrup, Guaraná Extract, Edible Gold Flakes, Sparkling Water.",
+        ingFelixAlc: "Ingredients: Same as standard.",
+        ingAmortentiaStandard: "Ingredients: Butterfly pea flower tea, rose syrup, edible glitter, dry ice, elderflower liqueur (optional).",
+        ingAmortentiaOptions: "Customize Scent Options: Fresh grass/mint (Harry style), Vanilla/caramel (Ron style), Citrus/cedar (Draco style), Rose/honey (Ginny style)",
+        ingButterbeerStandard: "Ingredients: Cream Soda, Butter Syrup, Cream Topping.",
+        ingButterbeerAlc: "Ingredients: Same as standard.",
+        ingFireWhisky: "Ingredients: Bourbon Whiskey, Coffee Liqueur, Chili Syrup, Maple Syrup, others (bitters/garnish).",
+        ingRedcurrant: "Ingredients: Rum, Redcurrant Syrup, Fresh Lemon Juice, Simple Syrup, Soda Water/Tonic, Garnish.",
+        ingSandwich: "Ingredients: Chicken & mayo sandwich, but each bite might surprise you with random flavors.",
+        ingMeatPie: "Ingredients: Flaky pastry filled with savory beef."
+      },
+      es: {
+        header: "Menú de Comidas en Vuelo",
+        seatLabel: "Por favor, ingrese el número de asiento:",
+        combos: "Combinados",
+        desserts: "Postres",
+        freeItems: "Artículos Gratis",
+        beverages: "Bebidas Creativas",
+        viewCart: "Ver Carrito",
+        clearCart: "Vaciar Carrito",
+        cart: "Carrito",
+        total: "Importe Total",
+        checkout: "Checkout",
+        food1: "Paquete de carne asada de buitre (15 libras)",
+        food2: "paquete de pollo asado hutchispace (14 libras)",
+        food3: "paquete de cerdo asado ravencrow (12 libras)",
+        food4: "slattering Fish pie Pack (13 libras)",
+        food5: "ensalada de hongos negros (10 libras)",
+        food6: "pastel de cumpleaños de Hagrid (7 libras)",
+        food7: "pudín de miel (6 libras)",
+        food8: "frijoles de varios sabores de Bertie Bot (5 libras)",
+        food9: "sherbet Lemon (5 libras)",
+        food10: "félix felicis: Copa estándar (250 ml) (10 libras)",
+        food11: "félix felicis: versión alcohólica (125 ml) (12 libras)",
+        food12: "amistad: Copa estándar (250 ml) (7 libras)",
+        food13: "paquete para parejas (12 libras)",
+        food14: "amore: versión alcohólica (125 ml) (10 libras)",
+        food15: "cerveza con mantequilla: Copa estándar (250 ml) (6 libras)",
+        food16: "cerveza con mantequilla: versión alcohólica (125 ml) (8 libras)",
+        food17: "whisky de fuego: Copa estándar (125 ml) (10 libras)",
+        food18: "ron de grosella roja: Copa estándar (125 ml) (10 libras)",
+        food19: "todo tipo de sabores de sándwiches de frijol de Bertie Bot (gratis)",
+        food20: "pastel de carne en forma de olla grande (gratis)",
+        ingFelixStandard: "Ingredientes: Leche dorada (Cúrcuma + Coco), Jarabe de miel cítrica, Extracto de guaraná, Hojuelas de oro comestibles, Agua con gas.",
+        ingFelixAlc: "Ingredientes: Igual que estándar.",
+        ingAmortentiaStandard: "Ingredientes: Té de flor de guisante mariposa, jarabe de rosa, brillo comestible, hielo seco, licor de flor de saúco (opcional).",
+        ingAmortentiaOptions: "Opciones de aroma: Hierba fresca/menta (estilo Harry), Vainilla/caramelo (estilo Ron), Cítrico/cedro (estilo Draco), Rosa/miel (estilo Ginny)",
+        ingButterbeerStandard: "Ingredientes: Soda de crema, jarabe de mantequilla, crema batida.",
+        ingButterbeerAlc: "Ingredientes: Igual que estándar.",
+        ingFireWhisky: "Ingredientes: Whiskey bourbon, licor de café, jarabe de chile, jarabe de arce, otros (amargos/adornos).",
+        ingRedcurrant: "Ingredientes: Ron, jarabe de grosella roja, jugo de limón fresco, jarabe simple, soda/Tónica, adorno.",
+        ingSandwich: "Ingredientes: Sándwich de Bertie Bott’s con todos los sabores, cada bocado puede sorprenderte con un sabor al azar.",
+        ingMeatPie: "Ingredientes: Pastelería hojaldrada rellena de carne de res salada."
+      },
+      fr: {
+        header: "Menu de Repas en Vol",
+        seatLabel: "Veuillez entrer le numéro de siège:",
+        combos: "Formules",
+        desserts: "Desserts",
+        freeItems: "Articles Gratuits",
+        beverages: "Boissons Créatives",
+        viewCart: "Voir le Panier",
+        clearCart: "Vider le Panier",
+        cart: "Panier",
+        total: "Montant Total",
+        checkout: "Checkout",
+        food1: "Griffindor Roast Beef Combo (15£)",
+        food2: "Hufflepuff Roast Chicken Combo (14£)",
+        food3: "Ravenclaw Roast Pork Combo (12£)",
+        food4: "Slytherin Fish Pie Combo (13£)",
+        food5: "Herbivicus Salad (10£)",
+        food6: "Hagrid’s Birthday Cake (7£)",
+        food7: "Honey Pudding (6£)",
+        food8: "Bertie Bott's Every Flavor Beans (5£)",
+        food9: "Sherbet Lemon (5£)",
+        food10: "Felix Felicis : standard cup (250mL) (10£)",
+        food11: "Felix Felicis : Alcoholic Edition (125ml) (12£)",
+        food12: "Amortentia : standard cup (250mL) (7£)",
+        food13: "Amortentia : couple’s set (12£)",
+        food14: "Amortentia : Alcoholic Edition (125ml) (10£)",
+        food15: "Butterbeer : standard cup (250mL) (6£)",
+        food16: "Butterbeer : Alcoholic Edition (125ml) (8£)",
+        food17: "Fire whisky : standard cup (125mL) (10£)",
+        food18: "Redcurrant Rum : standard cup (125mL) (10£)",
+        food19: "Bertie Bott’s Every-Flavour Beans Sandwich (Gratuit)",
+        food20: "Cauldron-Shaped Meat Pie (Gratuit)",
+        ingFelixStandard: "Ingrédients : Lait doré (Curcuma + Coco), Sirop miel-citron, Extrait de guarana, Flocons d’or comestibles, Eau pétillante.",
+        ingFelixAlc: "Ingrédients : Identiques à la version standard.",
+        ingAmortentiaStandard: "Ingrédients : Thé de pois papillon, sirop de rose, paillettes comestibles, glace carbonique, liqueur de fleur de sureau (optionnel).",
+        ingAmortentiaOptions: "Options de parfum : Herbe fraîche/menthe (style Harry), Vanille/caramel (style Ron), Agrumes/cèdre (style Draco), Rose/miel (style Ginny)",
+        ingButterbeerStandard: "Ingrédients : Soda à la crème, sirop de beurre, garniture de crème.",
+        ingButterbeerAlc: "Ingrédients : Identiques à la version standard.",
+        ingFireWhisky: "Ingrédients : Whiskey bourbon, liqueur de café, sirop de piment, sirop d’érable, autres (amer/garniture).",
+        ingRedcurrant: "Ingrédients : Rhum, sirop de groseille rouge, jus de citron frais, sirop simple, soda/Tonic, garniture.",
+        ingSandwich: "Ingrédients : Sandwich Bertie Bott’s aux multiples saveurs, chaque bouchée pouvant vous surprendre avec un goût aléatoire.",
+        ingMeatPie: "Ingrédients : Pâtisserie feuilletée remplie de bœuf salé."
+      },
+      ar: {
+        header: "قائمة الطعام على متن الطائرة",
+        seatLabel: "يرجى إدخال رقم المقعد:",
+        combos: "مجموعات",
+        desserts: "حلويات",
+        freeItems: "عناصر مجانية",
+        beverages: "مشروبات إبداعية",
+        viewCart: "عرض السلة",
+        clearCart: "مسح السلة",
+        cart: "السلة",
+        total: "المبلغ الإجمالي",
+        checkout: "Checkout",
+        food1: "Griffindor Roast Beef Combo (15£)",
+        food2: "Hufflepuff Roast Chicken Combo (14£)",
+        food3: "Ravenclaw Roast Pork Combo (12£)",
+        food4: "Slytherin Fish Pie Combo (13£)",
+        food5: "Herbivicus Salad (10£)",
+        food6: "Hagrid’s Birthday Cake (7£)",
+        food7: "Honey Pudding (6£)",
+        food8: "Bertie Bott's Every Flavor Beans (5£)",
+        food9: "Sherbet Lemon (5£)",
+        food10: "Felix Felicis: standard cup (250mL) (10£)",
+        food11: "Felix Felicis: Alcoholic Edition (125ml) (12£)",
+        food12: "Amortentia: standard cup (250mL) (7£)",
+        food13: "Amortentia: couple’s set (12£)",
+        food14: "Amortentia: Alcoholic Edition (125ml) (10£)",
+        food15: "Butterbeer: standard cup (250mL) (6£)",
+        food16: "Butterbeer: Alcoholic Edition (125ml) (8£)",
+        food17: "Fire whisky: standard cup (125mL) (10£)",
+        food18: "Redcurrant Rum: standard cup (125mL) (10£)",
+        food19: "Bertie Bott’s Every-Flavour Beans Sandwich (مجاني)",
+        food20: "Cauldron-Shaped Meat Pie (مجاني)",
+        ingFelixStandard: "المكونات: حليب ذهبي (كركم + جوز الهند), شراب عسل الحمضيات, مستخلص الجوارانا, رقائق ذهبية صالحة للأكل, مياه فوارة.",
+        ingFelixAlc: "المكونات: نفس مكونات النسخة القياسية.",
+        ingAmortentiaStandard: "المكونات: شاي زهرة البازلاء الفراشية, شراب الورد, بريق صالح للأكل, ثلج جاف, ليكور زهور البلسان (اختياري).",
+        ingAmortentiaOptions: "خيارات العطر: عشب طازج/نعناع (على طريقة هاري), فانيليا/كراميل (على طريقة رون), حمضيات/أرز (على طريقة دراكو), ورد/عسل (على طريقة جيني)",
+        ingButterbeerStandard: "المكونات: صودا الكريمة, شراب الزبدة, كريمة.",
+        ingButterbeerAlc: "المكونات: نفس مكونات النسخة القياسية.",
+        ingFireWhisky: "المكونات: ويسكي بوربون, ليكور القهوة, شراب الفلفل, شراب القيقب, أخرى (مرارات/زينة).",
+        ingRedcurrant: "المكونات: روم, شراب الكشمش الأحمر, عصير ليمون طازج, شراب بسيط, مياه فوارة/تونك, زينة.",
+        ingSandwich: "المكونات: ساندويتش Bertie Bott’s بنكهات متعددة، قد يفاجئك كل قضمة بمذاق عشوائي.",
+        ingMeatPie: "المكونات: فطيرة على شكل مرجل محشوة بلحم بقر مُملح."
+      },
+      ru: {
+        header: "Меню питания на борту",
+        seatLabel: "Пожалуйста, введите номер места:",
+        combos: "Комбо",
+        desserts: "Десерты",
+        freeItems: "Бесплатные позиции",
+        beverages: "Креативные напитки",
+        viewCart: "Посмотреть корзину",
+        clearCart: "Очистить корзину",
+        cart: "Корзина",
+        total: "Общая сумма",
+        checkout: "Checkout",
+        food1: "Griffindor Roast Beef Combo (15£)",
+        food2: "Hufflepuff Roast Chicken Combo (14£)",
+        food3: "Ravenclaw Roast Pork Combo (12£)",
+        food4: "Slytherin Fish Pie Combo (13£)",
+        food5: "Herbivicus Salad (10£)",
+        food6: "Hagrid’s Birthday Cake (7£)",
+        food7: "Honey Pudding (6£)",
+        food8: "Bertie Bott's Every Flavor Beans (5£)",
+        food9: "Sherbet Lemon (5£)",
+        food10: "Felix Felicis: standard cup (250mL) (10£)",
+        food11: "Felix Felicis: Alcoholic Edition (125ml) (12£)",
+        food12: "Amortentia: standard cup (250mL) (7£)",
+        food13: "Amortentia: couple’s set (12£)",
+        food14: "Amortentia: Alcoholic Edition (125ml) (10£)",
+        food15: "Butterbeer: standard cup (250mL) (6£)",
+        food16: "Butterbeer: Alcoholic Edition (125ml) (8£)",
+        food17: "Fire whisky: standard cup (125mL) (10£)",
+        food18: "Redcurrant Rum: standard cup (125mL) (10£)",
+        food19: "Bertie Bott’s Every-Flavour Beans Sandwich (Бесплатно)",
+        food20: "Cauldron-Shaped Meat Pie (Бесплатно)",
+        ingFelixStandard: "Ингредиенты: Золотое молоко (куркума + кокос), цитрусово-медовый сироп, экстракт гуараны, съедобные золотые хлопья, газированная вода.",
+        ingFelixAlc: "Ингредиенты: То же, что и в стандартной версии.",
+        ingAmortentiaStandard: "Ингредиенты: Чай из цветков гороха-бабочки, розовый сироп, съедобный блеск, сухой лед, ликер из бузины (опционально).",
+        ingAmortentiaOptions: "Варианты ароматизации: Свежая трава/мята (в стиле Гарри), Ваниль/карамель (в стиле Рона), Цитрус/кедр (в стиле Драко), Роза/мед (в стиле Джинни)",
+        ingButterbeerStandard: "Ингредиенты: Крем-сода, сироп из сливочного масла, сливки.",
+        ingButterbeerAlc: "Ингредиенты: То же, что и в стандартной версии.",
+        ingFireWhisky: "Ингредиенты: Бурбон, кофейный ликер, сироп с перцем, кленовый сироп, прочее (биттеры/гарнир).",
+        ingRedcurrant: "Ингредиенты: Ром, сироп из красной смородины, свежий лимонный сок, простой сироп, газированная вода/тоник, гарнир.",
+        ingSandwich: "Ингредиенты: Сэндвич Bertie Bott’s с различными вкусами, каждая порция может удивить случайным вкусом.",
+        ingMeatPie: "Ингредиенты: Многослойное тесто с начинкой из соленой говядины."
+      }
+    };
+
+    document.getElementById('language-selector').addEventListener('change', function() {
+      const lang = this.value;
+      const t = translations[lang];
+
+      // 更新页面顶部文字和标签
+      document.getElementById('header-title').textContent = t.header;
+      document.querySelector('label[for="seat-number"]').innerHTML = `<strong>${t.seatLabel}</strong>`;
+      document.getElementById('combos-title').textContent = t.combos;
+      document.getElementById('desserts-title').textContent = t.desserts;
+      document.getElementById('free-items-title').textContent = t.freeItems || "Free Items";
+      document.getElementById('beverages-title').textContent = t.beverages;
+      document.querySelector('.actions .view').textContent = t.viewCart;
+      document.querySelector('.actions .clear').textContent = t.clearCart;
+      document.querySelector('.cart h2').textContent = t.cart;
+      document.querySelector('.cart .checkout').textContent = t.checkout;
+      document.querySelector('.cart h3').innerHTML = `${t.total}: <span id="total-price">0</span>£`;
+
+      // 更新每个食物项目及其配料描述
+      document.getElementById('food1').textContent = t.food1;
+      document.getElementById('food2').textContent = t.food2;
+      document.getElementById('food3').textContent = t.food3;
+      document.getElementById('food4').textContent = t.food4;
+      document.getElementById('food5').textContent = t.food5;
+      document.getElementById('food6').textContent = t.food6;
+      document.getElementById('food7').textContent = t.food7;
+      document.getElementById('food8').textContent = t.food8;
+      document.getElementById('food9').textContent = t.food9;
+      document.getElementById('food10').innerHTML = t.food10 + "<br><p class='ingredients' id='ing-felix-standard'>" + t.ingFelixStandard + "</p>";
+      document.getElementById('food11').innerHTML = t.food11 + "<br><p class='ingredients' id='ing-felix-alc'>" + t.ingFelixAlc + "</p>";
+      document.getElementById('food12').innerHTML = t.food12 + "<br><p class='ingredients' id='ing-amortentia-standard'>" + t.ingAmortentiaStandard + "</p>" +
+        "<br><p class='ingredients' id='ing-amortentia-options'>" + t.ingAmortentiaOptions + "</p>";
+      document.getElementById('food13').innerHTML = t.food13 + "<br><p class='ingredients' id='ing-amortentia-couple'>" + t.ingAmortentiaStandard + "</p>" +
+        "<br><p class='ingredients' id='ing-amortentia-options2'>" + t.ingAmortentiaOptions + "</p>";
+      document.getElementById('food14').innerHTML = t.food14 + "<br><p class='ingredients' id='ing-amortentia-alc'>" + t.ingAmortentiaStandard + "</p>" +
+        "<br><p class='ingredients' id='ing-amortentia-options3'>" + t.ingAmortentiaOptions + "</p>";
+      document.getElementById('food15').innerHTML = t.food15 + "<br><p class='ingredients' id='ing-butterbeer-standard'>" + t.ingButterbeerStandard + "</p>";
+      document.getElementById('food16').innerHTML = t.food16 + "<br><p class='ingredients' id='ing-butterbeer-alc'>" + t.ingButterbeerAlc + "</p>";
+      document.getElementById('food17').innerHTML = t.food17 + "<br><p class='ingredients' id='ing-firewhisky'>" + t.ingFireWhisky + "</p>";
+      document.getElementById('food18').innerHTML = t.food18 + "<br><p class='ingredients' id='ing-redcurrant'>" + t.ingRedcurrant + "</p>";
+      document.getElementById('food19').textContent = t.food19;
+      document.getElementById('ing-sandwich').textContent = t.ingSandwich;
+      document.getElementById('food20').textContent = t.food20;
+      document.getElementById('ing-meatpie').textContent = t.ingMeatPie;
+    });
+
+    window.onload = function() {
+      document.getElementById('language-selector').value = "zh";
+      document.getElementById('language-selector').dispatchEvent(new Event('change'));
+    };
+
+    // 下单相关函数保持不变
+    function addToCart(item, price, remarkId) {
+      const seat = document.getElementById("seat-number").value.trim();
+      if (!seat) {
+        alert("请先输入座位号！");
+        return;
+      }
+      const remark = document.getElementById(remarkId).value || '无备注';
+      cart.push({ item, price, remark, seat });
+      total += price;
+      alert(`${item} 已加入购物车！`);
       syncCartToBackend();
     }
 
